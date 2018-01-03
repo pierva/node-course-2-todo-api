@@ -2,7 +2,7 @@ const {ObjectID} = require('mongodb');
 
 const {mongoose} = require('./../server/db/mongoose');
 const {Todo} = require('./../server/models/todo');
-const{User} = require('./../server/models/user');
+const {User} = require('./../server/models/user');
 
 var id = '5a476ac1cea87e86806f0cd3';
 
@@ -30,7 +30,7 @@ Todo.findById(id).then((todo) => {
 }).catch((e) => console.log(e));
 
 
-var userId = '5a4742119fd460e97d05eac2'
+var userId = '5a4d3edd90790d168fcdcba3'
 
 User.findById(userId).then((user) => {
     if(!user) {
