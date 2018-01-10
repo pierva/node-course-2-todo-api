@@ -6,9 +6,9 @@ const _ = require('lodash');
 var UserSchema = new mongoose.Schema({
     email: {
         type: String,
-        minlength: 1,
-        trim: true,
         required: true,
+        trim: true,
+        minlength: 1,
         unique: true,
         validate: {
             validator: validator.isEmail,
@@ -49,6 +49,26 @@ UserSchema.methods.generateAuthToken = function () {
         return token;
     });
 };
+
+UserSchema.statics.findByToken = function (token) {
+    var User = this;
+    var decoded;
+
+    try {
+        decoded = jwt.verify(token, 'abc123');
+    } catch (e) {
+        // return new Promise((resolve, reject) => {
+        //     reject();
+        // });
+        return Promise.reject(); //This does exact the same thing of the three lines above
+    }
+
+    return User.findOne({
+        '_id': decoded._id,
+        'tokens.token': token,
+        'tokens.access': 'auth'
+    });
+} ;
 
 var User = mongoose.model('User', UserSchema);
 
