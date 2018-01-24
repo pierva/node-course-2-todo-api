@@ -1,4 +1,20 @@
 const {SHA256} = require('crypto-js');
+const bcrypt = require('bcryptjs');
+
+var password = '123abc!';
+
+bcrypt.genSalt(10, (err,salt) => {
+    bcrypt.hash(password, salt, (err, hash) => {
+        console.log(hash);
+    });
+});
+
+var hashedPassword = "$2a$10$pVmg9Iw7M963dsarYKx5X.qHgdsaYcEaICbhw6YM5M2vVL274x0Pa" //copied from the console
+
+bcrypt.compare(password, hashedPassword, (err, res) => {
+    console.log(res);
+})
+
 
 var message = 'I am user Piervalerio';
 
